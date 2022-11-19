@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Navbar, Container, Image } from "react-bootstrap";
+import { Button, Navbar, Container, Image, Nav } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Biji } from "../../assets";
@@ -32,6 +32,14 @@ function NavbarComponent() {
     navigate(`/admin`);
   };
 
+  const moveToTransaksiUser = () => {
+    navigate(`/transaksi`);
+  };
+
+  const moveToHome = () => {
+    navigate(`/`);
+  };
+
   const logOut = () => {
     if (token) {
       axios
@@ -42,7 +50,7 @@ function NavbarComponent() {
         })
         .then((res) => {
           const data = res.data;
-          console.log("Sucess Logout :", data);
+          // console.log("Sucess Logout :", data);
           localStorage.removeItem("token");
           localStorage.removeItem("role");
           setButtonAdmin(false);
@@ -64,7 +72,7 @@ function NavbarComponent() {
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#9E7676" }}>
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand onClick={() => moveToHome()}>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Image src={Biji} width="40px" />
             <div style={{ color: "white" }}>
@@ -73,11 +81,13 @@ function NavbarComponent() {
           </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        {/* <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link>Log Transaksi</Nav.Link>
+            <Nav.Link onClick={() => moveToTransaksiUser()}>
+              Log Transaksi
+            </Nav.Link>
           </Nav>
-        </Navbar.Collapse> */}
+        </Navbar.Collapse>
         <div>
           {buttonLogin === true && (
             <Button bg="dark" variant="light" onClick={() => logOut()}>

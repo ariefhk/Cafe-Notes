@@ -18,13 +18,13 @@ function Login() {
   // handle submit
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Ini data Login : ", dataLogin);
+    // console.log("Ini data Login : ", dataLogin);
 
     axios
       .post(API_LOGIN, dataLogin)
       .then((res) => {
         const data = res.data;
-        console.log("data dari Login :", data.authorisation.token);
+        // console.log("data dari Login :", data.authorisation.token);
         localStorage.setItem("token", data.authorisation.token);
         localStorage.setItem("role", data.user.role);
         swal({
@@ -58,12 +58,6 @@ function Login() {
   // move to register
   const moveToRegister = () => {
     navigate(`/register`);
-  };
-
-  const testAction = () => {
-    console.log("====================================");
-    console.log("Berhasil Action");
-    console.log("====================================");
   };
 
   return (

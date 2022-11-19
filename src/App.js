@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Login, Register, Home, Admin } from "./page";
+import { TransactionUser } from "./component";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
           <Route path="/login" element={<Login />} exact />
           <Route path="/register" element={<Register />} exact />
           <Route path="/admin" element={<Admin />} exact />
+          <Route path="/transaksi" element={<TransactionUser />} exact />
         </Routes>
       </main>
     </Router>
