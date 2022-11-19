@@ -24,7 +24,7 @@ function Login() {
       .post(API_LOGIN, dataLogin)
       .then((res) => {
         const data = res.data;
-        console.log("data dari Login :", data);
+        console.log("data dari Login :", data.authorisation.token);
         localStorage.setItem("token", data.authorisation.token);
         localStorage.setItem("role", data.user.role);
         swal({

@@ -24,7 +24,7 @@ function Register() {
       .post(API_REGISTER, dataRegister)
       .then((res) => {
         const data = res.data;
-        console.log("data dari Register :", data);
+        // console.log("data dari Register :", data);
         swal({
           title: `Berhasil Buat Akun`,
           text: `Akun sebagai ${data.user.role} : ${data.user.name}`,
