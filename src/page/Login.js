@@ -39,7 +39,7 @@ function Login() {
         navigate(`/`);
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        // console.log("Error yaa ", error);
       });
 
     setDataLogin({ email: "", password: "" });

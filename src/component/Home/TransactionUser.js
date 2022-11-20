@@ -32,7 +32,7 @@ function TransactionUser() {
       .get(API_ALL_TRANSACTION)
       .then((res) => {
         const data = res.data;
-        console.log("data transaksi;;;;", data.data);
+        // console.log("data transaksi;;;;", data.data);
         // data.data.products.filter((product) =>
         //   String(product.title).toLowerCase().includes(searchTerm)
         // );
@@ -43,7 +43,7 @@ function TransactionUser() {
         );
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        // console.log("Error yaa ", error);
       });
   }, [searchTerm]);
 
@@ -68,7 +68,7 @@ function TransactionUser() {
         handleDetail(data.data.transaction_detail);
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        // console.log("Error yaa ", error);
       });
   };
 
@@ -88,7 +88,7 @@ function TransactionUser() {
               data.push(response.data.data);
             })
             .catch((error) => {
-              console.log("Boo..ERROR:> ", error);
+              // console.log("Boo..ERROR:> ", error);
               let message = error.response.data.message;
               if (message === "Product not found") {
                 swal({
@@ -117,7 +117,7 @@ function TransactionUser() {
   };
 
   if (dataDetail) {
-    console.log("Akhirnya: ", dataDetail);
+    // console.log("Akhirnya: ", dataDetail);
   }
 
   const handleShowProdImage = (product_id) => {
@@ -149,7 +149,7 @@ function TransactionUser() {
     return "Not Found";
   };
 
-  console.log("detail transaksi ;", detailTransaksi);
+  // console.log("detail transaksi ;", detailTransaksi);
 
   if (data.length === 0) {
     return (

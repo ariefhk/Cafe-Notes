@@ -45,13 +45,13 @@ function ModalAddProduct({ showAdd, handleCloseAdd, showingProduct }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("data mau dikirim: ", data);
+    // console.log("data mau dikirim: ", data);
 
     axios
       .post(API_STORE_PRODUCT, data, config)
       .then((res) => {
         const data = res.data;
-        console.log("data dari update Product: ", data);
+        // console.log("data dari update Product: ", data);
         handleCloseAdd();
         handleSucces();
         showingProduct();
@@ -64,7 +64,7 @@ function ModalAddProduct({ showAdd, handleCloseAdd, showingProduct }) {
         });
       })
       .catch((error) => {
-        console.log("Boo..ERROR:> ", error);
+        // console.log("Boo..ERROR:> ", error);
         if (error.response.data.message === "Unauthenticated.") {
           swal({
             title: "Sesi telah berakhir, Silahkan Login kembali!",

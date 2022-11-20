@@ -24,7 +24,7 @@ function FormAdmin({ category, changeHandler }) {
         setCategories(data.data);
       })
       .catch((error) => {
-        console.log("Boo..ERROR:> ", error);
+        // console.log("Boo..ERROR:> ", error);
         if (error.response.data.message === "Unauthenticated.") {
           swal({
             title: "Sesi telah berakhir, Silahkan Login kembali!",

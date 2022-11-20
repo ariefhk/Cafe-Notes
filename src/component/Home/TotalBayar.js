@@ -25,13 +25,13 @@ function TotalBayar({ keranjang, handleDeleteAll }) {
       jumlah: products_jumlah,
       diterima: bayar,
     };
-    console.log("dari total bayar ::>", pesanan);
+    // console.log("dari total bayar ::>", pesanan);
 
     axios
       .post(API_ALL_TRANSACTION, data)
       .then((res) => {
-        const data = res.data;
-        console.log("data bayar ygy: ", data);
+        // const data = res.data;
+        // console.log("data bayar ygy: ", data);
         handleDeleteAll();
         swal({
           title: "Bayar Pesanan!",
@@ -43,7 +43,7 @@ function TotalBayar({ keranjang, handleDeleteAll }) {
         setBayar(0);
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        // console.log("Error yaa ", error);
         let message = error.response.data.message;
         if (message === "Uang kurang") {
           swal({
@@ -73,9 +73,30 @@ function TotalBayar({ keranjang, handleDeleteAll }) {
 
   const changeHandler = (event) => {
     setBayar(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
-  console.log("Jumlah yang harus dibayarkan: ", totalBayar);
+  // console.log("Jumlah yang harus dibayarkan: ", totalBayar);
+
+  const handleKonfirmasi = (pesanan) => {
+    // console.log("dari total bayar ::>", pesanan);
+
+    swal({
+      title: "Konfirmasi Pembayaran",
+      text: "Pembayaran yang sudah berhasil, tidak bisa dihapus!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        submitTotalBayar(pesanan);
+      } else {
+        swal("Pesanan Dibatalkan!", {
+          icon: "error",
+          dangerMode: true,
+        });
+      }
+    });
+  };
 
   return (
     <div
@@ -136,7 +157,7 @@ function TotalBayar({ keranjang, handleDeleteAll }) {
               borderColor: "#594546",
               padding: "7px 50px",
             }}
-            onClick={() => submitTotalBayar(keranjang)}
+            onClick={() => handleKonfirmasi(keranjang)}
           >
             <FontAwesomeIcon icon={faShoppingCart} /> <strong>BAYAR</strong>
           </Button>

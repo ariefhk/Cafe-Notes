@@ -61,7 +61,7 @@ function ProductAdmin() {
             );
           })
           .catch((error) => {
-            console.log("Boo..ERROR:> ", error);
+            // console.log("Boo..ERROR:> ", error);
             if (error.response.data.message === "Unauthenticated.") {
               swal({
                 title: "Sesi telah berakhir, Silahkan Login kembali!",
@@ -114,11 +114,11 @@ function ProductAdmin() {
     setShowAdd(false);
   };
 
-  console.log("daftar product:", product);
+  // console.log("daftar product:", product);
 
   const handleSearch = (event) => {
     setSearchTerm(String(event.target.value).toLowerCase());
-    console.log("test:", event.target.value);
+    // console.log("test:", event.target.value);
   };
 
   return (

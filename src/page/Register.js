@@ -35,7 +35,7 @@ function Register() {
         navigate(`/login`);
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        // console.log("Error yaa ", error);
       });
     setDataRegister({ name: "", email: "", password: "", role: "User" });
   };

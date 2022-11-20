@@ -17,6 +17,7 @@ function Home() {
   const [category, setCategory] = useState(1);
   const [daftarMenu, setDaftarMenu] = useState("");
   const [keranjang, setKeranjang] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
   //token
@@ -32,11 +33,16 @@ function Home() {
           .get(API_BYID_CATEGORY + category)
           .then((res) => {
             const data = res.data;
-            setDaftarMenu(data.data.products);
-            // console.log("data kategori : ", data.data);
+            // setDaftarMenu(data.data.products);
+            setDaftarMenu(
+              data.data.products.filter((product) =>
+                String(product.title).toLowerCase().includes(searchTerm)
+              )
+            );
+            // console.log("data produk : ", data.data.products);
           })
           .catch((error) => {
-            console.log("Boo..ERROR:> ", error);
+            // console.log("Boo..ERROR:> ", error);
             if (error.response.data.message === "Unauthenticated.") {
               swal({
                 title: "Sesi telah berakhir, Silahkan Login kembali!",
@@ -50,7 +56,7 @@ function Home() {
           });
       }
     }
-  }, [category, navigate, token]);
+  }, [category, navigate, token, searchTerm]);
 
   // Ganti Kategori
   const changeCategory = (category_id) => {
@@ -103,7 +109,7 @@ function Home() {
   const kurang = (pesanan) => {
     let checkData = keranjang.find((x) => x.id === pesanan.id);
 
-    if (checkData) {
+    if (checkData.jumlah !== 1) {
       // console.log("ada yang samaaaaa tambah!");
       let updateData = keranjang.map((x) =>
         x.id === pesanan.id ? { ...checkData, jumlah: checkData.jumlah - 1 } : x
@@ -115,6 +121,11 @@ function Home() {
   // Hapus semua item di keranjang
   const handleDeleteAll = () => {
     setKeranjang([]);
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(String(event.target.value).toLowerCase());
+    // console.log("test:", event.target.value);
   };
 
   return (
@@ -131,6 +142,8 @@ function Home() {
           <MenuProduct
             daftarMenu={daftarMenu}
             masukKeranjang={masukKeranjang}
+            searchTerm={searchTerm}
+            handleSearch={handleSearch}
           />
           {/* Hasil Transaksi */}
           <HasilTransaction

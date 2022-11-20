@@ -59,7 +59,7 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("data mau diupdate: ", data);
+    // console.log("data mau diupdate: ", data);
     let API_UPDATE = `http://cafe-notes-api.herokuapp.com/api/product/${idProduct}`;
     axios
       .post(API_UPDATE, data, config)
@@ -77,7 +77,7 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
         });
       })
       .catch((error) => {
-        console.log("Boo..ERROR:> ", error);
+        // console.log("Boo..ERROR:> ", error);
         if (error.response.data.message === "Unauthenticated.") {
           swal({
             title: "Sesi telah berakhir, Silahkan Login kembali!",
@@ -103,8 +103,8 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
     axios
       .post(API_DELETE, DELETE_METHOD, config)
       .then((res) => {
-        const data = res.data;
-        console.log("data dari update Product: ", data);
+        // const data = res.data;
+        // console.log("data dari update Product: ", data);
         handleClose();
         showingProduct();
         swal({
@@ -116,7 +116,7 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
         });
       })
       .catch((error) => {
-        console.log("Boo..ERROR:> ", error);
+        // console.log("Boo..ERROR:> ", error);
         if (error.response.data.message === "Unauthenticated.") {
           swal({
             title: "Sesi telah berakhir, Silahkan Login kembali!",

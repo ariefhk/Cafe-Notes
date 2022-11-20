@@ -13,6 +13,7 @@ function NavbarComponent() {
   const role = localStorage.getItem("role");
   const [buttonLogin, setButtonLogin] = useState(true);
   const [buttonAdmin, setButtonAdmin] = useState(false);
+
   // const [buttonHome, setButtonHome] = useState(false);
 
   useEffect(() => {
@@ -67,7 +68,7 @@ function NavbarComponent() {
           navigate(`/login`);
         })
         .catch((error) => {
-          console.log("Boo..ERROR:> ", error);
+          // console.log("Boo..ERROR:> ", error);
           if (error.response.data.message === "Unauthenticated.") {
             swal({
               title: "Sesi telah berakhir, Silahkan Login kembali!",
@@ -82,10 +83,14 @@ function NavbarComponent() {
     }
   };
 
+  // tampilan
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#9E7676" }}>
       <Container>
-        <Navbar.Brand onClick={() => moveToHome()}>
+        <Navbar.Brand
+          onClick={() => moveToHome()}
+          style={{ cursor: "pointer" }}
+        >
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <Image src={Biji} width="40px" />
             <div style={{ color: "white" }}>
@@ -96,7 +101,10 @@ function NavbarComponent() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link onClick={() => moveToTransaksiUser()}>
+            <Nav.Link
+              onClick={() => moveToTransaksiUser()}
+              // style={{ color: "" }}
+            >
               Log Transaksi
             </Nav.Link>
           </Nav>

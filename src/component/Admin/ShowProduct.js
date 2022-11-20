@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Card } from "react-bootstrap";
+import { numberWithCommas } from "../../utils/formatNumber";
 
 function ShowProduct({ product, handleShow }) {
   return (
@@ -7,6 +8,7 @@ function ShowProduct({ product, handleShow }) {
       <Card
         // style={{ width: "200px" }}
         className="shadow"
+        style={{ cursor: "pointer" }}
         onClick={() => handleShow(product)}
       >
         <Card.Img
@@ -27,10 +29,12 @@ function ShowProduct({ product, handleShow }) {
               <strong>Stock</strong> : {product.stock}
             </p>
             <p>
-              <strong>Harga Beli</strong> : Rp.{product.harga_beli}
+              <strong>Harga Beli</strong> : Rp.
+              {numberWithCommas(product.harga_beli)}
             </p>
             <p>
-              <strong>Harga Jual</strong> : Rp.{product.harga_jual}
+              <strong>Harga Jual</strong> : Rp.
+              {numberWithCommas(product.harga_jual)}
             </p>
           </div>
           <Card.Text>{product.description}</Card.Text>

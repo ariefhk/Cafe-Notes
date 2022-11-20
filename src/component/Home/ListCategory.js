@@ -22,7 +22,7 @@ function ListCategory({ categoriYangDipilih, changeCategory }) {
         setCategories(data.data);
       })
       .catch((error) => {
-        console.log("Boo..ERROR:> ", error);
+        // console.log("Boo..ERROR:> ", error);
         if (error.response.data.message === "Unauthenticated.") {
           swal({
             title: "Sesi telah berakhir, Silahkan Login kembali!",
@@ -32,9 +32,10 @@ function ListCategory({ categoriYangDipilih, changeCategory }) {
             timer: 1700,
           });
           navigate(`/login`);
-        } else {
-          console.log("errornya agak laen=>", error);
         }
+        // else {
+        //   console.log("errornya agak laen=>", error);
+        // }
       });
   }, [navigate]);
 
