@@ -4,7 +4,11 @@ import { Col, Card } from "react-bootstrap";
 function ShowProduct({ product, handleShow }) {
   return (
     <Col md={4} xs={6} className="mb-4">
-      <Card className="shadow" onClick={() => handleShow(product)}>
+      <Card
+        // style={{ width: "200px" }}
+        className="shadow"
+        onClick={() => handleShow(product)}
+      >
         <Card.Img
           variant="top"
           src={product.thumbnail}
@@ -29,7 +33,6 @@ function ShowProduct({ product, handleShow }) {
               <strong>Harga Jual</strong> : Rp.{product.harga_jual}
             </p>
           </div>
-          {/* <p></p> */}
           <Card.Text>{product.description}</Card.Text>
         </Card.Body>
       </Card>

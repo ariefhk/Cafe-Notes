@@ -3,6 +3,7 @@ import { Modal, Button, Form, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
   const [selectedImage, setSelectedImage] = useState("");
@@ -18,6 +19,8 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
     thumbnail: null,
     _method: "PUT",
   });
+
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
 
@@ -62,19 +65,29 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
       .post(API_UPDATE, data, config)
       .then((res) => {
         const data = res.data;
-        console.log("data dari update Product: ", data);
+        // console.log("INI: ", data);
         handleClose();
         showingProduct();
         swal({
           title: "Berhasil Update!",
-          text: `testt`,
+          text: `Produk : ${data.data.update_product.title}`,
           icon: "success",
           button: false,
           timer: 1500,
         });
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        console.log("Boo..ERROR:> ", error);
+        if (error.response.data.message === "Unauthenticated.") {
+          swal({
+            title: "Sesi telah berakhir, Silahkan Login kembali!",
+            text: `${error.response.data.message}`,
+            icon: "error",
+            button: false,
+            timer: 1700,
+          });
+          navigate(`/login`);
+        }
       });
   };
 
@@ -96,14 +109,24 @@ function ModalProduct({ show, handleClose, selectProduct, showingProduct }) {
         showingProduct();
         swal({
           title: "Berhasil Hapus Data!",
-          text: `testt`,
+          text: `Done!`,
           icon: "success",
           button: false,
           timer: 1500,
         });
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        console.log("Boo..ERROR:> ", error);
+        if (error.response.data.message === "Unauthenticated.") {
+          swal({
+            title: "Sesi telah berakhir, Silahkan Login kembali!",
+            text: `${error.response.data.message}`,
+            icon: "error",
+            button: false,
+            timer: 1700,
+          });
+          navigate(`/login`);
+        }
       });
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Form } from "react-bootstrap";
 import axios from "axios";
 import { API_BYID_CATEGORY } from "../../utils/byIdCategory";
 import FormAdmin from "./FormAdmin";
@@ -29,6 +29,9 @@ function ProductAdmin() {
     thumbnail: null,
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchResults, setSearchResults] = React.useState([]);
+
   //token
   const token = localStorage.getItem("token");
   axios.defaults.headers.get["Authorization"] = `Bearer ${token}`;
@@ -49,15 +52,31 @@ function ProductAdmin() {
           .get(API_BYID_CATEGORY + category)
           .then((res) => {
             const data = res.data;
-            setProduct(data.data.products);
+            // setProduct(data.data.products);
+            //Filter searchbar
+            setProduct(
+              data.data.products.filter((product) =>
+                String(product.title).toLowerCase().includes(searchTerm)
+              )
+            );
           })
           .catch((error) => {
-            console.log("Error yaa ", error);
+            console.log("Boo..ERROR:> ", error);
+            if (error.response.data.message === "Unauthenticated.") {
+              swal({
+                title: "Sesi telah berakhir, Silahkan Login kembali!",
+                text: `${error.response.data.message}`,
+                icon: "error",
+                button: false,
+                timer: 1700,
+              });
+              navigate(`/login`);
+            }
           });
       }
     }
     setFetch(false);
-  }, [category, fetch]);
+  }, [category, fetch, role, navigate, searchTerm]);
 
   const showingProduct = () => {
     setFetch(true);
@@ -65,7 +84,6 @@ function ProductAdmin() {
 
   const changeHandler = (event) => {
     let value = event.target.value;
-
     setCategory(value);
   };
 
@@ -87,6 +105,7 @@ function ProductAdmin() {
     setShow(true);
   };
 
+  // Tambah Product
   const handleShowAdd = () => {
     setShowAdd(true);
   };
@@ -95,7 +114,12 @@ function ProductAdmin() {
     setShowAdd(false);
   };
 
-  console.log(product);
+  console.log("daftar product:", product);
+
+  const handleSearch = (event) => {
+    setSearchTerm(String(event.target.value).toLowerCase());
+    console.log("test:", event.target.value);
+  };
 
   return (
     <Col md={9} mt={3}>
@@ -105,25 +129,58 @@ function ProductAdmin() {
             <strong>Edit Produk</strong>
           </h4>
           <hr />
-          <FormAdmin category={category} changeHandler={changeHandler} />
+          <Row>
+            <Col>
+              <FormAdmin category={category} changeHandler={changeHandler} />
+            </Col>
+            <Col>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Control
+                  type="text"
+                  placeholder="Cari Produk"
+                  onChange={handleSearch}
+                  value={searchTerm}
+                  name="produk"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
           <Col className="mt-3">
-            <Row>
-              {product &&
-                product.map((value, index) => {
-                  return (
-                    <ShowProduct
-                      key={value.id}
-                      product={value}
-                      handleShow={handleShow}
-                    />
-                  );
-                })}
-            </Row>
+            <div className="overflow-auto hasil3">
+              <Row>
+                {product &&
+                  product.map((value, index) => {
+                    return (
+                      <ShowProduct
+                        key={value.id}
+                        product={value}
+                        handleShow={handleShow}
+                      />
+                    );
+                  })}
+              </Row>
+            </div>
           </Col>
           <ModalProduct
             show={show}
             selectProduct={selectProduct}
             handleClose={handleClose}
+            showingProduct={showingProduct}
+          />
+        </Col>
+        <Col md={2}>
+          <Button
+            style={{ backgroundColor: "#594546", borderColor: "#594546" }}
+            onClick={() => handleShowAdd()}
+          >
+            Add Product
+          </Button>
+          <ModalAddProduct
+            showAdd={showAdd}
+            handleCloseAdd={handleCloseAdd}
             showingProduct={showingProduct}
           />
         </Col>

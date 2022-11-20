@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 // import swal from "sweetalert";
 
 function Home() {
@@ -35,7 +36,17 @@ function Home() {
             // console.log("data kategori : ", data.data);
           })
           .catch((error) => {
-            console.log("Error yaa ", error);
+            console.log("Boo..ERROR:> ", error);
+            if (error.response.data.message === "Unauthenticated.") {
+              swal({
+                title: "Sesi telah berakhir, Silahkan Login kembali!",
+                text: `${error.response.data.message}`,
+                icon: "error",
+                button: false,
+                timer: 1700,
+              });
+              navigate(`/login`);
+            }
           });
       }
     }

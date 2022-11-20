@@ -7,8 +7,10 @@ import axios from "axios";
 import { useState } from "react";
 import { API_ALL_TRANSACTION } from "../../utils/allTransaction";
 import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
 function TotalBayar({ keranjang, handleDeleteAll }) {
+  const navigate = useNavigate();
   const [bayar, setBayar] = useState(0);
 
   // token
@@ -51,6 +53,16 @@ function TotalBayar({ keranjang, handleDeleteAll }) {
             button: false,
             timer: 2000,
           });
+        }
+        if (message === "Unauthenticated.") {
+          swal({
+            title: "Sesi telah berakhir, Silahkan Login kembali!",
+            text: `${error.response.data.message}`,
+            icon: "error",
+            button: false,
+            timer: 1700,
+          });
+          navigate(`/login`);
         }
       });
   };

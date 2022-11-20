@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 // import { API_BYID_CATEGORY } from "../../utils/byIdCategory";
 import { API_ALL_CATEGORY } from "../../utils/allCategory";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 function FormAdmin({ category, changeHandler }) {
   const [categories, setCategories] = useState("");
+  const navigate = useNavigate();
 
   // token
   const token = localStorage.getItem("token");
@@ -21,9 +24,19 @@ function FormAdmin({ category, changeHandler }) {
         setCategories(data.data);
       })
       .catch((error) => {
-        console.log("Error yaa ", error);
+        console.log("Boo..ERROR:> ", error);
+        if (error.response.data.message === "Unauthenticated.") {
+          swal({
+            title: "Sesi telah berakhir, Silahkan Login kembali!",
+            text: `${error.response.data.message}`,
+            icon: "error",
+            button: false,
+            timer: 1700,
+          });
+          navigate(`/login`);
+        }
       });
-  }, []);
+  }, [navigate]);
 
   return (
     <Form.Select

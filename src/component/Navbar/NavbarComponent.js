@@ -13,6 +13,7 @@ function NavbarComponent() {
   const role = localStorage.getItem("role");
   const [buttonLogin, setButtonLogin] = useState(true);
   const [buttonAdmin, setButtonAdmin] = useState(false);
+  // const [buttonHome, setButtonHome] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -66,7 +67,17 @@ function NavbarComponent() {
           navigate(`/login`);
         })
         .catch((error) => {
-          console.log("Error yaa ", error);
+          console.log("Boo..ERROR:> ", error);
+          if (error.response.data.message === "Unauthenticated.") {
+            swal({
+              title: "Sesi telah berakhir, Silahkan Login kembali!",
+              text: `${error.response.data.message}`,
+              icon: "error",
+              button: false,
+              timer: 1700,
+            });
+            navigate(`/login`);
+          }
         });
     }
   };
