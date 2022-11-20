@@ -53,6 +53,8 @@ function NavbarComponent() {
           // console.log("Sucess Logout :", data);
           localStorage.removeItem("token");
           localStorage.removeItem("role");
+          localStorage.removeItem("name");
+          localStorage.removeItem("email");
           setButtonAdmin(false);
           swal({
             title: `Berhasil Log Out`,

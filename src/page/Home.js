@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { Row } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import swal from "sweetalert";
+// import swal from "sweetalert";
 
 function Home() {
   const [category, setCategory] = useState(1);

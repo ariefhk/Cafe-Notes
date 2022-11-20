@@ -24,9 +24,11 @@ function Login() {
       .post(API_LOGIN, dataLogin)
       .then((res) => {
         const data = res.data;
-        // console.log("data dari Login :", data.authorisation.token);
+        console.log("data dari Login :", data);
         localStorage.setItem("token", data.authorisation.token);
         localStorage.setItem("role", data.user.role);
+        localStorage.setItem("name", data.user.name);
+        localStorage.setItem("email", data.user.email);
         swal({
           title: `Selamat Datang`,
           text: `Login sebagai ${data.user.role} : ${data.user.name}`,

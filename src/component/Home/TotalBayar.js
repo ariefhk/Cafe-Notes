@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Button, Form } from "react-bootstrap";
+import { Col, Button, Form } from "react-bootstrap";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { numberWithCommas } from "../../utils/formatNumber";

@@ -30,3 +30,7 @@ body {
 .overflow-auto::-webkit-scrollbar {
   display: none;
 }
+
+.hasil2 {
+  height: 450px;
+}
